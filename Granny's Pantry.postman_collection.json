@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "485163cc-013c-45d4-9a6b-c6de1d29393b",
+		"name": "Granny's Pantry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26626578"
+	},
+	"item": [
+		{
+			"name": "Restore Basket",
+			"item": []
+		},
+		{
+			"name": "Get details for pantry",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://getpantry.cloud/apiv1/pantry/aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190/basket/Grannys",
+					"protocol": "https",
+					"host": [
+						"getpantry",
+						"cloud"
+					],
+					"path": [
+						"apiv1",
+						"pantry",
+						"aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190",
+						"basket",
+						"Grannys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pantry_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://getpantry.cloud/apiv1/pantry/aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190?pantry_id=aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190",
+					"protocol": "https",
+					"host": [
+						"getpantry",
+						"cloud"
+					],
+					"path": [
+						"apiv1",
+						"pantry",
+						"aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190"
+					],
+					"query": [
+						{
+							"key": "pantry_id",
+							"value": "aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "basket_name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://getpantry.cloud/apiv1/pantry/aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190/basket/Grannys?basket_name=Grannys",
+					"protocol": "https",
+					"host": [
+						"getpantry",
+						"cloud"
+					],
+					"path": [
+						"apiv1",
+						"pantry",
+						"aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190",
+						"basket",
+						"Grannys"
+					],
+					"query": [
+						{
+							"key": "basket_name",
+							"value": "Grannys"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pantry_api_path",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://getpantry.cloud/apiv1/pantry/?pantry_api_path=https://getpantry.cloud/apiv1/pantry/",
+					"protocol": "https",
+					"host": [
+						"getpantry",
+						"cloud"
+					],
+					"path": [
+						"apiv1",
+						"pantry",
+						""
+					],
+					"query": [
+						{
+							"key": "pantry_api_path",
+							"value": "https://getpantry.cloud/apiv1/pantry/"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_pantry",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://getpantry.cloud/apiv1/pantry/<YOUR_PANTRY_ID>/basket/<YOUR_BASKET_NAME>",
+					"protocol": "https",
+					"host": [
+						"getpantry",
+						"cloud"
+					],
+					"path": [
+						"apiv1",
+						"pantry",
+						"<YOUR_PANTRY_ID>",
+						"basket",
+						"<YOUR_BASKET_NAME>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"//Check if Pantry API path variable is used in the URL",
+					"pm.test(\"Pantry API path variable used\", function () {",
+					"    pm.expect(String(pm.request.url)).to.include(pm.variables.get(\"pantry_api_path\"));",
+					"});",
+					"",
+					"//Check if Pantry ID variable is used in the URL",
+					"pm.test(\"Pantry id variable used\", function () {",
+					"    pm.expect(String(pm.request.url)).to.include(pm.variables.get(\"pantry_id\"));",
+					"});",
+					"",
+					"//Check if Basket name variable is used in the URL",
+					"//The .search() method returns -1 by default if no match found for \"basket\" in the URL (e.g. for getting account details)",
+					" if(String(pm.request.url).search(\"basket\") != -1){",
+					"pm.test(\"Basket name variable used when needed\", function () {",
+					"    pm.expect(String(pm.request.url)).to.include(pm.variables.get(\"basket_name\"));",
+					"    });",
+					"}",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "pantry_id",
+			"value": "aa6dc87b-71a9-43aa-be5c-c1b4a0a4f190",
+			"type": "string"
+		},
+		{
+			"key": "basket_name",
+			"value": "Grannys",
+			"type": "string"
+		},
+		{
+			"key": "pantry_api_path",
+			"value": "https://getpantry.cloud/apiv1/pantry/",
+			"type": "string"
+		}
+	]
+}
